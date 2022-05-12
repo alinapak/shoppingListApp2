@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const ShoppingListApp = () => {
    const [items, setItems] = useState([]);
@@ -11,8 +10,13 @@ const ShoppingListApp = () => {
       localStorage.setItem("items", createItems);
       setNewItem("");
       setItems([...items, newItem]);
-
    }
+
+   useEffect(() => {
+      let localStorageItems = JSON.parse(localStorage.getItem("items"));
+      setItems(localStorageItems || []);
+   }, []);
+
    return (
       <div className="card m-3">
          <form onSubmit={(e) => addItem(e)} className="card-body m-3 list-group list-group-flush">

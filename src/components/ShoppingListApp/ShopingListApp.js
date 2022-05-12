@@ -7,6 +7,8 @@ const ShoppingListApp = () => {
 
    const addItem = (e) => {
       e.preventDefault();
+      let createItems = JSON.stringify([...items, newItem]);
+      localStorage.setItem("items", createItems);
       setNewItem("");
       setItems([...items, newItem]);
 

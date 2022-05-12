@@ -11,6 +11,11 @@ const ShoppingListApp = () => {
       setNewItem("");
       setItems([...items, newItem]);
    }
+   const removeItem = (shoppingItem) => {
+      let filtered = items.filter((shopI) => shopI !== shoppingItem);
+      localStorage.setItem("items", JSON.stringify(filtered));
+      setItems(filtered);
+   };
 
    useEffect(() => {
       let localStorageItems = JSON.parse(localStorage.getItem("items"));
@@ -20,13 +25,14 @@ const ShoppingListApp = () => {
    return (
       <div className="card m-3">
          <form onSubmit={(e) => addItem(e)} className="card-body m-3 list-group list-group-flush">
-            <input className="list-group-item border border-warning rounded" value={newItem} onChange={(e) => setNewItem(e.target.value)}>
+            <input className="list-group-item border border-warning rounded" value={newItem} onChange={(e) => setNewItem(e.target.value)} required>
             </input>
             <button className=" btn mt-3 btn-warning">Add item</button>
          </form>
-         <div className="m-3">{items.map((item, idx) => (
-            <div key={idx}>
-               <p className="border p-3 rounded">{item}</p>
+         <div className="container">{items.map((item, idx) => (
+            <div className="row justify-content-center" key={idx}>
+               <p className="list-group-item rounded col-4">{item}</p>
+               <button onClick={() => { removeItem(item); }}className="btn col-2 btn-dark">Delete</button>
             </div>
          )
          )}

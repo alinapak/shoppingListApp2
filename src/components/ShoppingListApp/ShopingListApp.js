@@ -1,26 +1,45 @@
 import React, { useEffect, useState } from 'react';
 
+   const readLocalItems = () => {
+      let shopItems = localStorage.getItem("items");
+      if (shopItems) {
+         return JSON.parse(localStorage.getItem("items"));
+      }
+      else {
+         return [];
+      }
+   }
+
 const ShoppingListApp = () => {
-   const [items, setItems] = useState([]);
-   const [newItem, setNewItem] = useState([]);
+   const [items, setItems] = useState(readLocalItems());
+   const [newItem, setNewItem] = useState();
+
+   useEffect(() => {
+      localStorage.setItem("items", JSON.stringify(items));
+   }, [items]);
 
    const addItem = (e) => {
       e.preventDefault();
-      let createItems = JSON.stringify([...items, newItem]);
-      localStorage.setItem("items", createItems);
+      setItems([...items, { item: newItem, completed: false, id: Math.random() * 1000 }]);
       setNewItem("");
-      setItems([...items, newItem]);
    }
+
    const removeItem = (shoppingItem) => {
       let filtered = items.filter((shopI) => shopI !== shoppingItem);
-      localStorage.setItem("items", JSON.stringify(filtered));
       setItems(filtered);
    };
 
-   useEffect(() => {
-      let localStorageItems = JSON.parse(localStorage.getItem("items"));
-      setItems(localStorageItems || []);
-   }, []);
+   const checkItem = (x) => {
+      setItems(items.map((item) => {
+         if (item.id === x) {
+            return {
+               ...item, completed: !item.completed
+            }
+         }
+         return item;
+      }
+      ))
+   }
 
    return (
       <div className="card m-3">
@@ -30,10 +49,11 @@ const ShoppingListApp = () => {
             <button className=" btn mt-3 btn-warning">Add item</button>
          </form>
          <div className="container">{items.map((item, idx) => (
-            <div className="row justify-content-center" key={idx}>
-               <p className="list-group-item rounded col-4">{item}</p>
-               <button onClick={() => { removeItem(item); }}className="btn col-2 btn-dark">Delete</button>
-            </div>
+            <ul className="row justify-content-center" key={idx}>
+               <li className="list-group-item rounded col-4">{item.item}</li>
+               <button className="btn col-2 btn-danger" onClick={() => checkItem(item.id)}>Check</button>
+               <button onClick={() => { removeItem(item); }} className="btn col-2 btn-dark">Delete</button>
+            </ul>
          )
          )}
          </div>

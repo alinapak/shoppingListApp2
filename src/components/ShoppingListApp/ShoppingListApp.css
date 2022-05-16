@@ -1,0 +1,6 @@
+.completed {
+opacity:0.5;
+}
+.completed::before {
+   content:"✓";
+}

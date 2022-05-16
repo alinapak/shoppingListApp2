@@ -10,16 +10,12 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="*"
-          element={
+        <Route path="*"     element={
             <main className="text-center">
               <img src="https://miro.medium.com/max/800/1*hFwwQAW45673VGKrMPE2qQ.png"></img>
             </main>
-          }
-        />
-        {/* ikeliam viska ka norim matyti, neuztenka tik komponento, reikia ir props ir pan */}
-        {/* jei norim main kontento, imetam ta kontenta i tuscia slesa */}
-        <Route path='/' element={<MainComponent message="Hello !!" text="How are you?" />} />
+          }/>
+        <Route path='/' element={<MainComponent />} />
         <Route path="/app" element={<ShoppingListApp />} />
       </Routes>
       <Footer />

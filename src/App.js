@@ -1,13 +1,13 @@
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import MainComponent from './components/MainComponent/MainComponent';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {Routes, Route } from 'react-router-dom';
 import './App.css';
 import ShoppingListApp from './components/ShoppingListApp/ShopingListApp';
 
 function App() {
   return (
-    <BrowserRouter>
+   <>
       <Header />
       <Routes>
         <Route path="*"     element={
@@ -19,7 +19,7 @@ function App() {
         <Route path="/app" element={<ShoppingListApp />} />
       </Routes>
       <Footer />
-    </BrowserRouter>
+      </>
   );
 }
 

@@ -30,10 +30,6 @@ const ShoppingListApp = () => {
       setItems(filtered);
    };
 
-   const identical = (shoppingItem) => {
-      items.filter((shopI) => shopI === shoppingItem);
-   };
-
    const checkItem = (x) => {
       setItems(items.map((item) => {
          if (item.id === x) {

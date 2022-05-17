@@ -6,10 +6,10 @@ const Header = () => (
       <nav className="navbar navbar-light bg-light">
         <ul className="container-fluid justify-content-start">
           <li className="navbar-nav px-3">
-            <Link className="nav-link text-success" to="/">Welcome</Link>
+            <NavLink  className={({ isActive }) => (isActive ? "nav-link text-success active" : "nav-link ")} to="/">Welcome</NavLink>
           </li>
           <li className="navbar-nav px-3">
-            <NavLink className="nav-link text-success" to="/app">
+            <NavLink   className={({ isActive }) => (isActive ? "nav-link text-success active" : "nav-link ")} to="/app">
               Shopping List App
             </NavLink>
           </li>
